@@ -45,8 +45,10 @@ public class AuthController {
             throw new ServiceException("密码错误");
         }
 
+        String clientId = body.getClientId() != null ? body.getClientId() : "e5cd7e4891bf95d1d19206ce24a7b32e";
+
         SaLoginParameter param = new SaLoginParameter()
-            .setExtra(LoginHelper.CLIENT_KEY, body.getClientId())
+            .setExtra(LoginHelper.CLIENT_KEY, clientId)
             .setExtra("userId", user.getUserId())
             .setExtra("userName", user.getUserName())
             .setExtra("tenantId", user.getTenantId());
@@ -55,7 +57,7 @@ public class AuthController {
         L0LoginVo vo = new L0LoginVo();
         vo.setAccessToken(StpUtil.getTokenValue());
         vo.setExpireIn(StpUtil.getTokenTimeout());
-        vo.setClientId(body.getClientId());
+        vo.setClientId(clientId);
         return R.ok(vo);
     }
 
