@@ -1,0 +1,113 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: afo-gateway
+  profiles:
+    active: online
+
+  # Redis 配置（缓存模型准入/API Key/租户Mode）
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: 0
+      timeout: 5000ms
+      # 连接池配置
+      lettuce:
+        pool:
+          max-active: 16
+          max-idle: 8
+          min-idle: 4
+          max-wait: 3000ms
+
+# Actuator 健康检查
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+# MyBatisPlus配置
+mybatis-plus:
+  enableLogicDelete: true
+  mapperPackage: org.afo.**.mapper
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  typeAliasesPackage: org.afo.**.domain
+  global-config:
+    dbConfig:
+      idType: ASSIGN_ID
+
+# security配置
+security:
+  excludes:
+    - /*.html
+    - /**/*.html
+    - /**/*.css
+    - /**/*.js
+    - /favicon.ico
+    - /error
+    - /*/api-docs
+    - /*/api-docs/**
+    - /actuator/health
+    - /llm/v1/chat/completions
+    - /api/gateway/**
+    - /gateway/**
+    - /v1/**
+
+# 默认/推荐使用sse推送
+sse:
+  enabled: true
+  path: /resource/sse
+
+# websocket
+websocket:
+  enabled: false
+  path: /resource/websocket
+  allowedOrigins: '*'
+
+# 网关自定义配置
+afo:
+  gateway:
+    # Admin 控制台 API 地址
+    admin:
+      base-url: ${ADMIN_BASE_URL:http://afo-system-gateway:8080}
+      internal-token: ${INTERNAL_TOKEN:}
+
+    # LiteLLM Proxy 地址
+    litellm:
+      base-url: ${LITELLM_BASE_URL:http://127.0.0.1:4000}
+      timeout: 180000
+      retry-count: 2
+
+    # 分类器服务地址（L0阶段仅心跳检查）
+    classifier:
+      base-url: ${CLASSIFIER_BASE_URL:http://127.0.0.1:8000}
+      timeout: 5000
+      heartbeat-interval: 30000  # 30秒
+
+    # 缓存配置
+    cache:
+      # API Key 缓存 TTL（秒）
+      api-key-ttl: 300
+      # 模型准入策略缓存 TTL（秒）
+      model-access-ttl: 600
+      # Redis Pub/Sub 刷新 Topic
+      refresh-topic: gateway:cache:refresh
+
+rabbitmq:
+  enabled: true
+
+# 日志配置
+logging:
+  level:
+    org.afo.gateway: DEBUG
+    org.springframework.web: INFO
+    reactor.netty: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

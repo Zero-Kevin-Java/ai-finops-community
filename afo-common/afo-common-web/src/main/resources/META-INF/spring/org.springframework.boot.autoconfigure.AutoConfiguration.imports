@@ -1,0 +1,5 @@
+org.afo.common.web.config.CaptchaConfig
+org.afo.common.web.config.FilterConfig
+org.afo.common.web.config.I18nConfig
+org.afo.common.web.config.ResourcesConfig
+org.afo.common.web.config.UndertowConfig

@@ -1,0 +1,44 @@
+=== 模块: afo-gateway ===
+[ERROR] RouteDecisionEngine.java:8 → 找不到符号: org.afo.common.scoring.core (ScoringEngine)
+[ERROR] RouteDecisionEngine.java:9 → 找不到符号: org.afo.common.scoring.core (ScoringContext)
+[ERROR] RouteDecisionEngine.java:10 → 找不到符号: org.afo.common.scoring.specificity
+[ERROR] RouteDecisionEngine.java:11 → 找不到符号: org.afo.common.scoring.specificity
+[ERROR] RouteDecisionEngine.java:299 → 找不到符号: ScoringContext (afo-common-scoring 未移植)
+[ERROR] ScoringService.java:4-11 → 找不到符号: org.afo.common.scoring.* (ScoringEngine, ScoringContext, ScoringResult, ComplexityTier, SpecificityCategory)
+[ERROR] ScoringService.java:43 → 找不到符号: ScoringEngine
+[ERROR] ScoringService.java:77 → 找不到符号: ScoringContext
+[ERROR] ScoringService.java:77 → 找不到符号: ScoringResult
+[ERROR] ScoringService.java:106 → 找不到符号: ComplexityTier
+[ERROR] ScoringService.java:126 → 找不到符号: SpecificityCategory
+[ERROR] ProxyForwardFilter.java:7 → 找不到符号: ShadowCompareQueueConfig (afo-common-rabbitmq 已删除)
+[ERROR] ProxyForwardFilter.java:8 → 找不到符号: RequestLogInsertQueueConfig (afo-common-rabbitmq 已删除)
+[ERROR] ProxyForwardFilter.java:9 → 找不到符号: ShadowCompareMessage (afo-common-rabbitmq 已删除)
+[ERROR] ShadowStreamingComparator.java:4 → 找不到符号: org.afo.common.embedding (包不存在)
+[ERROR] ShadowStreamingComparator.java:28 → 找不到符号: ShadowEmbeddingClient
+[ERROR] ShadowStreamingComparator.java:30 → 找不到符号: ShadowEmbeddingClient
+[ERROR] QuotaGuardFilter.java:4 → 找不到符号: QuotaGuardEventMessage (afo-common-rabbitmq 已删除)
+[ERROR] QuotaGuardEventPublisher.java:3 → 找不到符号: QuotaGuardEventMessage
+[ERROR] QuotaGuardEventPublisher.java:10 → 找不到符号: QuotaGuardEventMessage
+[ERROR] RabbitQuotaGuardEventPublisher.java:4 → 找不到符号: QuotaGuardEventQueueConfig (afo-common-rabbitmq 已删除)
+[ERROR] RabbitQuotaGuardEventPublisher.java:5 → 找不到符号: QuotaGuardEventMessage
+[ERROR] RabbitQuotaGuardEventPublisher.java:17 → 找不到符号: QuotaGuardEventMessage
+
+=== 模块: afo-llm ===
+SKIPPED (afo-gateway 编译失败阻塞)
+
+=== 模块: afo-strategy ===
+SKIPPED (afo-gateway 编译失败阻塞)
+
+=== 模块: afo-logs ===
+SKIPPED (afo-gateway 编译失败阻塞)
+
+=== 编译通过模块 (9/9 common) ===
+afo-common-core ✓
+afo-common-redis ✓
+afo-common-satoken ✓
+afo-common-mybatis ✓
+afo-common-tenant ✓
+afo-common-json ✓
+afo-common-rabbitmq ✓
+afo-common-web ✓
+afo-common-security ✓

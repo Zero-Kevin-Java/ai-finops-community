@@ -1,0 +1,109 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: afo-system-gateway
+  profiles:
+    active: online
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    dynamic:
+      p6spy: false
+      primary: master
+      strict: true
+      datasource:
+        master:
+          type: ${spring.datasource.type}
+          driverClassName: org.postgresql.Driver
+          url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/ai_finops_community?useUnicode=true&characterEncoding=utf8&autoReconnect=true&reWriteBatchedInserts=true
+          username: ${DB_USERNAME:ai_finops}
+          password: ${DB_PASSWORD:ai_finops}
+      hikari:
+        maxPoolSize: 20
+        minIdle: 10
+        connectionTimeout: 30000
+        validationTimeout: 5000
+        idleTimeout: 600000
+        maxLifetime: 1800000
+        keepaliveTime: 30000
+  data:
+    redis:
+      host: ${REDIS_HOST:redis}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: 0
+      timeout: 5000ms
+      lettuce:
+        pool:
+          max-active: 16
+          max-idle: 8
+          min-idle: 4
+          max-wait: 3000ms
+  rabbitmq:
+    host: ${RABBITMQ_HOST:rabbitmq}
+    port: 5672
+    username: ${RABBITMQ_USERNAME:ai_finops}
+    password: ${RABBITMQ_PASSWORD:ai_finops}
+    connection-timeout: 5s
+
+rabbitmq:
+  enabled: true
+
+tenant:
+  enable: true
+  excludes:
+    - sys_config
+    - sys_dict_type
+    - sys_dict_data
+    - sys_user_role
+    - sys_role_menu
+    - sys_role_dept
+    - sys_user_post
+    - sys_menu
+
+# MyBatisPlus配置
+mybatis-plus:
+  enableLogicDelete: true
+  mapperPackage: org.afo.**.mapper
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  typeAliasesPackage: org.afo.**.domain
+  global-config:
+    dbConfig:
+      idType: ASSIGN_ID
+
+# security配置
+security:
+  excludes:
+    - /*.html
+    - /**/*.html
+    - /**/*.css
+    - /**/*.js
+    - /favicon.ico
+    - /error
+    - /*/api-docs
+    - /*/api-docs/**
+    - /actuator/health
+
+# SSE 推送路径（兼容 common-security 配置）
+sse:
+  path: /resource/sse
+
+# Sa-Token配置
+sa-token:
+  token-name: Authorization
+  timeout: 2592000
+  active-timeout: -1
+  is-concurrent: true
+  is-share: false
+  token-style: uuid
+  is-log: false
+  jwt-secret-key: ${JWT_SECRET_KEY:abcdefghijklmnopqrstuvwxyz}
+
+# 日志配置
+logging:
+  level:
+    org.afo.system: DEBUG
+    org.springframework.web: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.afo</groupId>
+        <artifactId>ai-finops-community</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <modules>
+        <module>afo-common-core</module>
+        <module>afo-common-tenant</module>
+        <module>afo-common-rabbitmq</module>
+        <module>afo-common-redis</module>
+        <module>afo-common-mybatis</module>
+        <module>afo-common-json</module>
+        <module>afo-common-web</module>
+        <module>afo-common-security</module>
+        <module>afo-common-satoken</module>
+        <module>afo-common-excel</module>
+        <module>afo-common-idempotent</module>
+        <module>afo-common-log</module>
+        <module>afo-common-translation</module>
+    </modules>
+
+    <artifactId>afo-common</artifactId>
+    <packaging>pom</packaging>
+
+    <description>
+        common 通用模块
+    </description>
+
+</project>

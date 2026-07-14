@@ -1,0 +1,184 @@
+services:
+  # === 基础设施 ===
+  postgres:
+    image: postgres:17
+    container_name: afo-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ai_finops_community
+      POSTGRES_USER: ai_finops
+      POSTGRES_PASSWORD: ai_finops
+    ports:
+      - "15432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./script/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ai_finops -d ai_finops_community"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  redis:
+    image: redis:7
+    container_name: afo-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "16379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: afo-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ai_finops
+      RABBITMQ_DEFAULT_PASS: ai_finops
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  # === 控制面 ===
+  afo-system-gateway:
+    build:
+      context: ./afo-system-gateway
+      dockerfile: Dockerfile
+    container_name: afo-system-gateway
+    restart: unless-stopped
+    environment:
+      SERVER_PORT: 8080
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: ai_finops
+      DB_PASSWORD: ai_finops
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ""
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USERNAME: ai_finops
+      RABBITMQ_PASSWORD: ai_finops
+      JAVA_OPTS: "-Xms256m -Xmx512m"
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+
+  # === 网关 ===
+  afo-gateway:
+    build:
+      context: ./afo-gateway
+      dockerfile: Dockerfile
+    container_name: afo-gateway
+    restart: unless-stopped
+    environment:
+      SERVER_PORT: 8081
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: ai_finops
+      DB_PASSWORD: ai_finops
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ""
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USERNAME: ai_finops
+      RABBITMQ_PASSWORD: ai_finops
+      ADMIN_BASE_URL: http://afo-system-gateway:8080
+      LITELLM_BASE_URL: http://llm-router:4000
+      CLASSIFIER_BASE_URL: http://classifier-service:8000
+      JAVA_OPTS: "-Xms256m -Xmx512m"
+    ports:
+      - "8081:8081"
+    depends_on:
+      afo-system-gateway:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # === Python 服务 ===
+  classifier-service:
+    build:
+      context: ./classifier-service
+      dockerfile: Dockerfile
+    container_name: afo-classifier
+    restart: unless-stopped
+    environment:
+      CLASSIFIER_PORT: 8000
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  llm-router:
+    build:
+      context: ./llm-router
+      dockerfile: Dockerfile
+    container_name: afo-llm-router
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # === 前端 ===
+  app-l0:
+    build:
+      context: ./app-l0
+      dockerfile: Dockerfile
+    container_name: afo-app-l0
+    restart: unless-stopped
+    ports:
+      - "9527:80"
+    depends_on:
+      afo-system-gateway:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  postgres_data:
+  redis_data:
+  rabbitmq_data:

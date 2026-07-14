@@ -1,0 +1,16 @@
+packages:
+  - 'packages/*'
+allowBuilds:
+  '@parcel/watcher': set this to true or false
+  es5-ext: set this to true or false
+  esbuild: set this to true or false
+  simple-git-hooks: set this to true or false
+  unrs-resolver: set this to true or false
+  vue-demi: set this to true or false
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - es5-ext
+  - esbuild
+  - simple-git-hooks
+  - unrs-resolver
+  - vue-demi

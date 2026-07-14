@@ -1,0 +1,45 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    dynamic:
+      p6spy: false
+      primary: master
+      strict: true
+      datasource:
+        master:
+          type: ${spring.datasource.type}
+          driverClassName: org.postgresql.Driver
+          url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/ai_finops_community?useUnicode=true&characterEncoding=utf8&autoReconnect=true&reWriteBatchedInserts=true
+          username: ${DB_USERNAME:ai_finops}
+          password: ${DB_PASSWORD:ai_finops}
+      hikari:
+        maxPoolSize: ${DB_POOL_MAX_SIZE:20}
+        minIdle: ${DB_POOL_MIN_IDLE:10}
+        connectionTimeout: 30000
+        validationTimeout: 5000
+        idleTimeout: 600000
+        maxLifetime: 1800000
+        keepaliveTime: 30000
+  data:
+    redis:
+      host: ${REDIS_HOST:redis}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: 0
+
+afo:
+  gateway:
+    admin:
+      base-url: http://afo-system-gateway:8080
+    litellm:
+      base-url: ${LITELLM_BASE_URL:http://llm-router:4000}
+    classifier:
+      base-url: ${CLASSIFIER_BASE_URL:http://classifier-service:8000}
+
+logging:
+  level:
+    org.afo.gateway: INFO
+    reactor.netty: WARN

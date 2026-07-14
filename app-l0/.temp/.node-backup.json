@@ -1,0 +1,246 @@
+{
+  "Root": {
+    "filepath": "",
+    "inode": -99
+  },
+  "NotFound": {
+    "filepath": "",
+    "inode": -99
+  },
+  "_builtin403": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/_builtin/403/index.vue",
+    "inode": 1407374885223718
+  },
+  "_builtin404": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/_builtin/404/index.vue",
+    "inode": 1407374885223720
+  },
+  "_builtin500": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/_builtin/500/index.vue",
+    "inode": 1407374885223722
+  },
+  "_builtinIframePageUrl": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/_builtin/iframe-page/[url].vue",
+    "inode": 1407374885223724
+  },
+  "_builtinLogin": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/_builtin/login/index.vue",
+    "inode": 1970324838645038
+  },
+  "_builtinSocialCallback": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/_builtin/social-callback/index.vue",
+    "inode": 1688849861934390
+  },
+  "_builtinUserCenter": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/_builtin/user-center/index.vue",
+    "inode": 1688849861934392
+  },
+  "About": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/about/index.vue",
+    "inode": 1407374885223742
+  },
+  "DemoDemo": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/demo/demo/index.vue",
+    "inode": 1407374885223745
+  },
+  "DemoTree": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/demo/tree/index.vue",
+    "inode": 1407374885223750
+  },
+  "GatewayCache": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/gateway/cache/index.vue",
+    "inode": 2251799815367848
+  },
+  "GatewayRoutingConfig": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/gateway/routing-config/index.vue",
+    "inode": 5910974512727688
+  },
+  "GatewayScoringAnalytics": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/gateway/scoring-analytics/index.vue",
+    "inode": 3377699723252628
+  },
+  "GatewayShadow": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/gateway/shadow/index.vue",
+    "inode": 3096224745486874
+  },
+  "GatewayShadowValidationConfig": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/gateway/shadow/validation-config/index.vue",
+    "inode": 2533274792180144
+  },
+  "GatewayTrial": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/gateway/trial/index.vue",
+    "inode": 2533274792077313
+  },
+  "GatewayWhitelistRecommend": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/gateway/whitelist-recommend/index.vue",
+    "inode": 3659174699042757
+  },
+  "Home": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/home/index.vue",
+    "inode": 40250921671290984
+  },
+  "HomeDrilldown": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/home-drilldown/index.vue",
+    "inode": 1407374886246268
+  },
+  "LlmApiKey": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/llm/api-key/index.vue",
+    "inode": 1407374885220872
+  },
+  "LlmAppClient": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/llm/app-client/index.vue",
+    "inode": 1688849861943354
+  },
+  "LlmBillingRecord": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/llm/billing-record/index.vue",
+    "inode": 1407374885232707
+  },
+  "LlmBillingSummary": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/llm/billing-summary/index.vue",
+    "inode": 1407374885232711
+  },
+  "LlmCostDetailOverview": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/llm/cost-detail-overview/index.vue",
+    "inode": 562949956185595
+  },
+  "LlmModel": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/llm/model/index.vue",
+    "inode": 2533274792075350
+  },
+  "LlmProject": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/llm/project/index.vue",
+    "inode": 1688849861943387
+  },
+  "LlmProvider": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/llm/provider/index.vue",
+    "inode": 844424932864911
+  },
+  "LlmPublicModel": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/llm/public-model/index.vue",
+    "inode": 1125899909575578
+  },
+  "LlmPublicModelPrice": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/llm/public-model-price/index.vue",
+    "inode": 1125899909575573
+  },
+  "LlmQuotaOverview": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/llm/quota-overview/index.vue",
+    "inode": 2251799815366676
+  },
+  "LlmReconciliationDetailBillCompare": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/llm/reconciliation-detail/bill-compare/index.vue",
+    "inode": 2533274792180071
+  },
+  "LlmReconciliationDetailYuanKeyBill": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/llm/reconciliation-detail/yuan-key-bill/index.vue",
+    "inode": 562949956185602
+  },
+  "LlmRequestLog": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/llm/request-log/index.vue",
+    "inode": 1407374885232745
+  },
+  "MonitorCache": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/monitor/cache/index.vue",
+    "inode": 1407374885223765
+  },
+  "MonitorLogininfor": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/monitor/logininfor/index.vue",
+    "inode": 1407374885223767
+  },
+  "MonitorOnline": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/monitor/online/index.vue",
+    "inode": 1407374885223772
+  },
+  "MonitorOperlog": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/monitor/operlog/index.vue",
+    "inode": 1407374885223776
+  },
+  "OptimizerCacheAdvisor": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/optimizer/cache-advisor/index.vue",
+    "inode": 1970324839321369
+  },
+  "OptimizerCompressionRule": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/optimizer/compression-rule/index.vue",
+    "inode": 1688849862610717
+  },
+  "OptimizerGainDashboard": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/optimizer/gain-dashboard/index.vue",
+    "inode": 1407374885900065
+  },
+  "OptimizerInsight": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/optimizer/insight/index.vue",
+    "inode": 1688849862610725
+  },
+  "OptimizerPromptOptimizer": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/optimizer/prompt-optimizer/index.vue",
+    "inode": 1970324839321389
+  },
+  "OptimizerToolOutputCompressor": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/optimizer/tool-output-compressor/index.vue",
+    "inode": 1970324839321393
+  },
+  "SystemClient": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/system/client/index.vue",
+    "inode": 1407374885223782
+  },
+  "SystemConfig": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/system/config/index.vue",
+    "inode": 1407374885223787
+  },
+  "SystemDept": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/system/dept/index.vue",
+    "inode": 1407374885223792
+  },
+  "SystemDict": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/system/dict/index.vue",
+    "inode": 1407374885223797
+  },
+  "SystemDigitalEmployee": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/system/digital-employee/index.vue",
+    "inode": 1688849863029414
+  },
+  "SystemDigitalEmployeeDetail": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/system/digital-employee/detail/index.vue",
+    "inode": 562949956186793
+  },
+  "SystemMenu": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/system/menu/index.vue",
+    "inode": 1407374885223803
+  },
+  "SystemNotice": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/system/notice/index.vue",
+    "inode": 1407374885223808
+  },
+  "SystemOss": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/system/oss/index.vue",
+    "inode": 1407374885223818
+  },
+  "SystemOssConfig": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/system/oss-config/index.vue",
+    "inode": 1407374885223813
+  },
+  "SystemPost": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/system/post/index.vue",
+    "inode": 1407374885223823
+  },
+  "SystemRole": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/system/role/index.vue",
+    "inode": 1407374885223828
+  },
+  "SystemTenant": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/system/tenant/index.vue",
+    "inode": 1688849861934496
+  },
+  "SystemTenantPackage": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/system/tenant-package/index.vue",
+    "inode": 1407374885223835
+  },
+  "SystemUser": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/system/user/index.vue",
+    "inode": 1688849861934501
+  },
+  "ToolGen": {
+    "filepath": "D:/project/WL/AI-FinOps/app/src/views/tool/gen/index.vue",
+    "inode": 1407374885223853
+  }
+}

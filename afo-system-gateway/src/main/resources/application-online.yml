@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    dynamic:
+      p6spy: false
+      datasource:
+        master:
+          url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/ai_finops_community?useUnicode=true&characterEncoding=utf8&autoReconnect=true&reWriteBatchedInserts=true
+          username: ${DB_USERNAME:ai_finops}
+          password: ${DB_PASSWORD:ai_finops}
+  data:
+    redis:
+      host: ${REDIS_HOST:redis}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+  rabbitmq:
+    host: ${RABBITMQ_HOST:rabbitmq}
+    port: 5672
+    username: ${RABBITMQ_USERNAME:ai_finops}
+    password: ${RABBITMQ_PASSWORD:ai_finops}
+
+logging:
+  level:
+    org.afo.system: DEBUG
+    reactor.netty: WARN
