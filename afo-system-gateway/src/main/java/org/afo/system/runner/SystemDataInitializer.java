@@ -61,11 +61,13 @@ public class SystemDataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         TenantHelper.dynamic(DEFAULT_TENANT_ID, () -> {
-            if (adminExists()) {
-                log.info("System data already initialized, skipping.");
-                return;
+            boolean initialized = adminExists();
+            if (initialized) {
+                log.info("Admin user exists — checking each data component individually...");
+            } else {
+                log.info("First run — initializing L0 system data...");
             }
-            log.info("Initializing L0 system data...");
+
             initTenant();
             Long deptId = initDept();
             Long roleId = initRole();
@@ -73,7 +75,12 @@ public class SystemDataInitializer implements CommandLineRunner {
             initUserRole(userId, roleId);
             initMenus(roleId);
             initDictData();
-            log.info("L0 system data initialization completed.");
+
+            if (!initialized) {
+                log.info("L0 system data initialization completed.");
+            } else {
+                log.info("L0 system data verification completed.");
+            }
         });
     }
 

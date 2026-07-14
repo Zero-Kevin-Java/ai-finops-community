@@ -12,7 +12,8 @@ services:
       - "15432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./script/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./script/sql/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ./script/sql/init-data.sql:/docker-entrypoint-initdb.d/02-init-data.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ai_finops -d ai_finops_community"]
       interval: 10s

@@ -154,6 +154,7 @@ create table if not exists sys_user
     del_flag    char         default '0'::bpchar,
     login_ip    varchar(128) default ''::varchar,
     login_date  timestamp,
+    last_login_tenant_id varchar(20),
     create_dept int8,
     create_by   int8,
     create_time timestamp,
