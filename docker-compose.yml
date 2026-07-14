@@ -168,7 +168,7 @@ services:
     container_name: afo-app-l0
     restart: unless-stopped
     ports:
-      - "9527:80"
+      - "9080:80"
     depends_on:
       afo-system-gateway:
         condition: service_healthy
