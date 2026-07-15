@@ -1,105 +1,148 @@
-# AI-FinOps Community Edition
+<p align="center">
+  <h1 align="center">AI-FinOps Community Edition</h1>
+  <p align="center">LLM Multi-Model Intelligent Routing Gateway with Cost Management</p>
+</p>
 
-AI 算力多模型智能路由网关 — 规则引擎 + AI 分类器驱动的异构路由，透明代理，纯转发不落地。
+<p align="center">
+  <img src="https://img.shields.io/badge/license-Apache%202.0-blue" alt="License">
+  <img src="https://img.shields.io/badge/java-17-blue" alt="Java 17">
+  <img src="https://img.shields.io/badge/python-3.11+-blue" alt="Python 3.11+">
+  <img src="https://img.shields.io/badge/vue-3.x-green" alt="Vue 3">
+</p>
 
-## 功能特性
+---
 
-- **透明代理**：修改 base_url 即可接入，无需改动业务代码
-- **规则引擎**：team_tag / api_key / path / model 多维匹配，支持异构路由
-- **AI 分类器路由**：Qwen-0.5B + ONNX 实时评估任务复杂度，简单任务走便宜模型
-- **模型准入控制**：企业级模型访问策略，支持按 API Key 拒绝特定模型
-- **白名单豁免**：命中 pattern 强制走原模型，不参与路由优化
-- **纯转发不落地**：request_logs 仅存元数据，不存储 prompt/response 原文
-- **基础看板**：请求数统计、模型占比、冷启动引导
-- **llm-router**：Python + litellm 无状态多协议转发
+## What is AI-FinOps?
 
-## 架构
+AI-FinOps is a transparent proxy gateway that sits between your application and LLM providers. It uses a **rule engine + AI classifier** to intelligently route requests — simple queries go to cheap models, complex ones to premium models — cutting your LLM costs without sacrificing quality.
+
+- **Transparent proxy**: Change one `base_url`, zero code changes
+- **Smart routing**: Rule engine (multi-dimension matching) + ONNX classifier (real-time complexity scoring)
+- **Cost control**: Route cheap tasks to cheap models automatically
+- **Enterprise governance**: API Key management, tenant isolation, model allowlists/denylists
+- **Full observability**: Request logs, route decision logs, usage dashboards
+- **Privacy-first**: Metadata-only logging — never stores prompt or response content
+
+## Architecture
 
 ```
-[Client] → [afo-gateway:8081] → [llm-router:4000] → [Upstream LLM]
-                ↓
-       [classifier-service:8000]
-                ↓
-       [afo-system-gateway:8080] (控制面)
-                ↓
-       [PostgreSQL + Redis + RabbitMQ]
+                     ┌──────────────────────────────────┐
+                     │     afo-system-gateway :8080      │
+                     │   Control Plane (User/Role/Menu)   │
+                     └──────────┬───────────────────────┘
+                                │
+  LLM Client ──→ afo-gateway :8081 ──→ llm-router :4000 ──→ Upstream LLM
+                     │                        (LiteLLM proxy)
+                     ├── classifier-service :8000
+                     │   (prompt complexity → route hint)
+                     │
+                     └── PostgreSQL + Redis + RabbitMQ
 ```
 
-## 快速开始
+### Route Decision Engine
 
-### 前置条件
+Requests flow through a 3-layer decision chain inside the gateway filter pipeline:
 
-- Docker + Docker Compose
-- Git
+| Priority | Layer | Description |
+|----------|-------|-------------|
+| 1 | **Model Access Control** | Tenant-level model allowlist/denylist |
+| 2 | **API Key Scope** | Per-key model access restrictions |
+| 3 | **Routing Rules** | Conditional rules (by team, path, model pattern) |
+| 4 | **AI Classifier** (fallback) | Prompt complexity → auto-route simple tasks to cheaper models |
 
-### 启动
+## Quick Start
+
+### Prerequisites
+
+- Docker & Docker Compose
+
+### Launch
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/<your-org>/ai-finops-community.git
 cd ai-finops-community
 docker-compose up -d
 ```
 
-### 访问
+### Access
 
-- 前端：`http://localhost:9527`（admin / admin123）
-- 网关：`http://localhost:8081`
-- 控制面 API：`http://localhost:8080`
-- RabbitMQ 管理：`http://localhost:15672`（ai_finops / ai_finops）
+| Service | URL | Credentials |
+|---------|-----|-------------|
+| Frontend | http://localhost:9080 | admin / admin123 |
+| Gateway API | http://localhost:8081 | — |
+| Control Plane | http://localhost:8080 | — |
+| RabbitMQ UI | http://localhost:15672 | ai_finops / ai_finops |
 
-### 配置上游 Provider
+### Send Your First Request
 
-登录后进入「LLM 管理 → Provider」，添加 OpenAI/阿里云等上游 base_url 和 api_key。
-
-### 发送第一个请求
+1. Login to the frontend, go to **LLM Management → Provider** and add an upstream provider (e.g., OpenAI, DeepSeek)
+2. Create an API Key under **LLM Management → API Key**
+3. Route through the gateway:
 
 ```bash
-# 1. 在控制面创建 API Key 并绑定 Provider
-# 2. 使用 API Key 发送请求
 curl -X POST http://localhost:8081/v1/chat/completions \
   -H "Authorization: Bearer <your-api-key>" \
   -H "Content-Type: application/json" \
   -d '{"model":"gpt-4o","messages":[{"role":"user","content":"Hello"}]}'
 ```
 
-## 目录结构
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Gateway | Java 17, Spring Boot 3.5, Spring WebFlux (Reactor) |
+| Control Plane | Java 17, Spring Boot 3.5, MyBatis-Plus 3.5, Sa-Token 1.45 |
+| Python Services | Python 3.11+, FastAPI, LiteLLM, ONNX Runtime |
+| Frontend | Vue 3, Vite 7, TypeScript, Pinia, Naive UI, UnoCSS |
+| Database | PostgreSQL 17 |
+| Cache | Redis 7 |
+| Messaging | RabbitMQ 3 |
+
+## Project Structure
 
 ```
 ai-finops-community/
-├── afo-gateway/            # WebFlux 响应式网关
-├── afo-system-gateway/     # 控制面（用户/角色/菜单/API Key/模型管理）
-├── afo-llm/                # LLM 模型目录/API Key/Provider/项目/应用客户端
-├── afo-strategy/           # 规则引擎 + 模型准入策略
-├── afo-logs/               # 路由日志消费（运行于网关容器）
-├── afo-common/             # 公共模块
-├── classifier-service/     # Python 分类器
-├── llm-router/             # Python 转发代理
-├── app-l0/                 # Vue 3 前端
-└── script/sql/init.sql     # 数据库初始化脚本
+├── afo-gateway/              # Reactive proxy gateway (WebFlux, port 8081)
+├── afo-system-gateway/       # Control plane (RBAC, menus, API Keys, models)
+├── afo-llm/                  # LLM business: providers, models, API keys, billing
+├── afo-strategy/             # Routing rules engine & model access policies
+├── afo-logs/                 # Async log persistence via RabbitMQ
+├── afo-common/               # 13 shared Java libraries
+├── classifier-service/       # Python: prompt complexity classifier
+├── llm-router/               # Python: LiteLLM multi-protocol proxy (port 4000)
+├── app-l0/                   # Vue 3 frontend
+└── script/sql/               # Database init scripts (idempotent)
 ```
 
-## 端口规划
+## Key Features
 
-| 端口 | 服务 | 说明 |
-|------|------|------|
-| 15432 | PostgreSQL | 映射容器 5432 |
-| 16379 | Redis | 映射容器 6379 |
-| 5672 | RabbitMQ AMQP | 标准 AMQP 端口 |
-| 15672 | RabbitMQ Management | 管理 UI |
-| 8080 | afo-system-gateway | 控制面 API |
-| 8081 | afo-gateway | 网关代理 |
-| 8000 | classifier-service | 分类器 |
-| 4000 | llm-router | LLM 转发代理 |
-| 9527 | app-l0 | 前端 Nginx |
+- **Rule Engine**: Multi-dimension matching — `team_tag`, `api_key`, `request_path`, `model_name` — with conditional routing rules
+- **AI Classifier**: ONNX runtime with Qwen-0.5B for real-time prompt complexity assessment. Simple tasks (confidence ≥0.85) auto-route to cheaper models
+- **Semantic Cache**: Response caching by normalized prompt hash. Configurable TTL per tenant. Supports SSE stream caching
+- **Whitelist Bypass**: Pattern-based rules to force original model routing, skipping optimization
+- **Multi-Protocol**: OpenAI-compatible (`/v1/chat/completions`) + Anthropic (`/v1/messages`) via LiteLLM
+- **SSE Streaming**: Full support for server-sent events with streaming cost tracking
 
-## 与商业版的关系
+## Port Map
 
-本项目是 AI-FinOps 商业产品的 **L0 稳态版**开源分支。L1/L2 功能不在本仓库开发；本仓库仅接受 L0 范围内的改进、bug 修复和文档更新。
+| Port | Service | Note |
+|------|---------|------|
+| 15432 | PostgreSQL | Mapped from container 5432 |
+| 16379 | Redis | Mapped from container 6379 |
+| 5672 | RabbitMQ AMQP | Standard AMQP |
+| 15672 | RabbitMQ Management | Web UI |
+| 8080 | afo-system-gateway | Control plane API |
+| 8081 | afo-gateway | Gateway proxy |
+| 8000 | classifier-service | Prompt classifier |
+| 4000 | llm-router | LLM forward proxy |
+| 9080 | app-l0 | Frontend (Nginx) |
 
-## 贡献
+## Contributing
 
-见 [CONTRIBUTING.md](./CONTRIBUTING.md)。
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-## 许可证
+This is the **L0 Community Edition** open-source branch. We welcome bug fixes, documentation improvements, and L0-scoped feature contributions.
 
-Apache License 2.0
+## License
+
+[Apache License 2.0](./LICENSE)
