@@ -4,6 +4,10 @@
 </p>
 
 <p align="center">
+  <a href="./README.zh-CN.md">中文</a> · <b>English</b>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/license-Apache%202.0-blue" alt="License">
   <img src="https://img.shields.io/badge/java-17-blue" alt="Java 17">
   <img src="https://img.shields.io/badge/python-3.11+-blue" alt="Python 3.11+">
